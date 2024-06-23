@@ -1,5 +1,6 @@
 import { Edu_QLD_Beginner } from "next/font/google";
 import "./globals.css";
+import "react-loading-skeleton/dist/skeleton.css"
 
 const  eduQLD =  Edu_QLD_Beginner(
   { subsets: ["latin"] ,
