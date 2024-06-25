@@ -1,8 +1,8 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
+import {useState } from "react";
 import { quiz } from "../data";
-import Loading from "./loading";
+import { Answer , Button , Result } from "./component";
 
 export default function Page(){
     const [activeQuestion , setActiveQuestion] =useState(0);
@@ -73,59 +73,18 @@ export default function Page(){
                  {!showResult ? (
                     <div className="bg-zinc-600 w-full p-5 rounded-md">
                       <h3 className="text-xl font-bold text-red-900 text-center mb-5">{questions[activeQuestion].question}</h3>
-                      {
-                         
-                            answers?.map((answer , index)=>(
-                                <li key={index}
-                                    className={`${selectedAnswerIndex === index ? 'bg-red-800 bg-opacity-30 text-sm font-medium text-white p-2 w-full mt-2 border border-gray-400 rounded-sm list-none' : ''} 
-                                    text-sm font-medium text-white p-2 w-full mt-2 border border-gray-400 
-                                    rounded-sm list-none  hover:bg-red-800 hover:bg-opacity-30 cursor-pointer`}
-                                    onClick={()=>onAnswerSelected(answer , index)}
-                                  >
-                                    <Suspense  fallback={<Loading count={1} />}>
-                                    <span>
-                                    { answer}
-                                    </span>
-                                    </Suspense>
-                                   
-                                </li>
-                            ))
-                       
-                        
-                      }
-                      {
-                        checked ? 
-                        (
-                            <button  onClick={nextQuestion}
-                            className="w-full mt-5 py-2 px-4 border  border-red-900  rounded-md  bg-red-900  text-white"
-                            >
-                                {activeQuestion === questions.length -1 ? "End" : "Next"}
-                            </button>
-                        ):(
-                            <button  onClick={nextQuestion}
-                            className="w-full mt-5 py-2 px-4 border  border-red-900  rounded-md  bg-red-900  text-white"
-                            disabled>
-                                {activeQuestion === questions.length -1 ? "End" : "Next"}
-                            </button>
-                        )
-                      }
+                      
+                   
+                      <Answer answers={answers} onAnswerSelected={onAnswerSelected} selectedAnswerIndex={selectedAnswerIndex} />
+                      <Button 
+                          checked={checked} 
+                          nextQuestion={nextQuestion}
+                          activeQuestion={activeQuestion} 
+                          questionsCont={questions.length} />
                     </div>
                    
                   ) :(
-                 <div className="bg-zinc-600 w-full p-5 rounded-md">
-                    <h3 className="text-xl font-bold text-red-900 text-center">Result</h3>
-                    <h3 className="text-lg font-medium text-white p-2">
-                        Overall {(result.score / 75) * 100}% of the questions have been true answered
-                        </h3>
-                    <p className="text-sm font-medium text-white pt-2" >All Questions: {questions.length} </p>
-                    <p className="text-sm font-medium text-white pt-2" > Correct Answer :{result.correctAnswers} </p>
-                    <p className="text-sm font-medium text-white pt-2" >Wrong Answer :{result.wrongAnswers} </p>
-                    <p className="text-sm font-medium text-white pt-2">all Score :{result.score} </p>
-
-                    <button onClick={()=>window.location.reload()}
-                            className="w-full mt-5 py-2 px-4 border  border-red-900  rounded-md  bg-red-900  text-white"
-                    > Try Again</button>
-                 </div>
+                   <Result result={result} questionCount={questions.length} />
                   )}
             </div>
         </div>
