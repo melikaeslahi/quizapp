@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { quiz } from "../data";
 import Loading from "./loading";
 
@@ -10,8 +10,7 @@ export default function Page(){
     const [checked , setChecked] = useState(false);
     const [selectedAnswerIndex , setSelectedAnswerIndex] = useState(null);
     const [showResult , setShowResult] = useState(false);
-    const [answers , setAnswers]= useState();
-    const [correctAnswer , setCorrectAnswer]= useState();
+ 
     const [result , setResult] = useState({
         score:0,
         correctAnswers:0,
@@ -19,14 +18,9 @@ export default function Page(){
     });
     
     const {questions} = quiz;
-
-    useEffect(()=>{
-        setTimeout(()=>{
-          setAnswers(questions[activeQuestion].answers);
-          setCorrectAnswer(questions[activeQuestion].correctAnswer);
-        } , 2000);
-    } , [result])
+    const {answers , correctAnswer } = questions[activeQuestion];
     
+
     const  onAnswerSelected = (answer , index)=>{
         setChecked(true);
         setSelectedAnswerIndex(index)
@@ -53,8 +47,7 @@ export default function Page(){
          });
         if (activeQuestion !== questions.length -1) {
             setActiveQuestion((prev)=>prev+1);
-            setAnswers([]);
-            setCorrectAnswer(''); 
+           
         }else{
             setActiveQuestion(0);
             setShowResult(true)
@@ -81,7 +74,7 @@ export default function Page(){
                     <div className="bg-zinc-600 w-full p-5 rounded-md">
                       <h3 className="text-xl font-bold text-red-900 text-center mb-5">{questions[activeQuestion].question}</h3>
                       {
-                        answers?.length > 0 ? (
+                         
                             answers?.map((answer , index)=>(
                                 <li key={index}
                                     className={`${selectedAnswerIndex === index ? 'bg-red-800 bg-opacity-30 text-sm font-medium text-white p-2 w-full mt-2 border border-gray-400 rounded-sm list-none' : ''} 
@@ -89,12 +82,15 @@ export default function Page(){
                                     rounded-sm list-none  hover:bg-red-800 hover:bg-opacity-30 cursor-pointer`}
                                     onClick={()=>onAnswerSelected(answer , index)}
                                   >
-                                    {answer}
+                                    <Suspense  fallback={<Loading count={1} />}>
+                                    <span>
+                                    { answer}
+                                    </span>
+                                    </Suspense>
+                                   
                                 </li>
                             ))
-                        ) :(
-                            <Loading count={4} />
-                        )
+                       
                         
                       }
                       {
