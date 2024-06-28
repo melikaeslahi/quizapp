@@ -1,0 +1,31 @@
+{
+    "main":{
+        "appName": "اپلیکیشن کوئيز",
+        "appStartBtn": "شروع آزمون"
+    },
+    "quiz":{
+        "title":"اپلیکیشن کوئيز",
+        "quiz": "کوئيز",
+        "quizNum1":"کوئيز",
+        "quizNum2":"از",
+        "nextBtn":"سوال بعدی",
+        "finishBtn": "اتمام آزمون",
+        "result": "نتایج آزمون",
+        "resultScoreMsg1": "شما به ",
+        "resultScoreMsg2": " از سوالات پاسخ صحیح داده اید.",
+        "quizCount":"تعداد کل سوالات",
+        "quizScore":"امتیازات",
+        "quizCorrect": "پاسخ صحیح",
+        "quizWrong":"پاسخ غلط",
+        "quizRestart": "شروع مجدد"
+    },
+    "notFound":{
+        "message":"صفحه ی مورد نظر یافت نشد.",
+        "backToHome": "برگشت به صفحه ی اصلی"
+    },
+    "error":{
+        "message" : "خطایی پیش آمده است",
+        "tryAgain" : "تلاش مجدد"
+    }
+
+}

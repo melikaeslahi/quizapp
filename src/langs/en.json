@@ -1,0 +1,30 @@
+{
+    "main":{
+        "appName": "Quiz App",
+        "appStartBtn": "Start"
+    },
+    "quiz":{
+        "title":"Quiz App",
+        "quizNum1":"quiz",
+        "quizNum2":"of",
+        "nextBtn":"Next",
+        "finishBtn": "Fininsh",
+        "result": "Quiz Result",
+        "resultScoreMsg1": "In general",
+        "resultScoreMsg2": "of the questions have been answered",
+        "quizCount":"Number of question",
+        "quizScore":"Total question",
+        "quizCorrect": "correct question",
+        "quizWrong":"wrong question",
+        "quizRestart": "Try again"
+    },
+    "notFound":{
+        "message":"we did not find the page you are looking for",
+        "backToHome": "Back to home"
+    },
+    "error":{
+        "message" : "",
+        "tryAgain" : "Try again"
+    }
+
+}

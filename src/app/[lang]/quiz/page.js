@@ -1,10 +1,10 @@
 "use client";
 
 import {useState } from "react";
-import { quiz } from "../data";
+import { quiz } from "@/data";
 import { Answer , Button , Result } from "./component";
 
-export default function Page(){
+export default function  Quiz({lang , dict}){
     const [activeQuestion , setActiveQuestion] =useState(0);
     const [selectedAnswer ,  setSelectedAnswer] = useState("");
     const [checked , setChecked] = useState(false);
@@ -17,7 +17,7 @@ export default function Page(){
         wrongAnswers:0
     });
     
-    const {questions} = quiz;
+    const questions =  lang === 'en-us' ?  quiz.Enquestions : quiz.Faquestions ;
     const {answers , correctAnswer } = questions[activeQuestion];
     
 
@@ -33,7 +33,6 @@ export default function Page(){
         
     }
 
-    //calculate score and increment next questions
 
     const nextQuestion = () =>{
         setSelectedAnswerIndex(null);
@@ -45,6 +44,7 @@ export default function Page(){
              ...prev,
              wrongAnswers:prev.wrongAnswers + 1
          });
+
         if (activeQuestion !== questions.length -1) {
             setActiveQuestion((prev)=>prev+1);
            
@@ -54,38 +54,60 @@ export default function Page(){
         }
         setChecked(false);
     }
+
     return(
         <div className="container w-full flex flex-col justify-center items-center my-auto">
-            <h1 className="text-white font-bold text-2xl p-2 m-3 w-full text-center "> Quiz page </h1>
+            <h1 className="text-white font-bold text-2xl p-2 m-3 w-full text-center ">
+                 {dict['quiz'].title}
+            </h1>
             <div className="text-white p-3 ">
+
                 {!showResult ?
                 (<h2 className="pr-2">
-                    question : {activeQuestion + 1} from 
+                    {dict['quiz'].quizNum1} : {' '}
+                    {activeQuestion + 1}   
+                    {dict['quiz'].quizNum2} {' '}
                     <span className="pl-2">
                         {questions.length}
                     </span>
-                </h2>)
-                : null
+                </h2>
+                ): null}
 
-            }
             </div>
             <div>
+
                  {!showResult ? (
                     <div className="bg-zinc-600 w-full p-5 rounded-md">
-                      <h3 className="text-xl font-bold text-red-900 text-center mb-5">{questions[activeQuestion].question}</h3>
-                      
-                   
-                      <Answer answers={answers} onAnswerSelected={onAnswerSelected} selectedAnswerIndex={selectedAnswerIndex} />
+                      <h3 className="text-xl font-bold text-red-900 text-center mb-5">
+                        {questions[activeQuestion].question}
+                        </h3>
+
+                      <Answer answers={answers}
+                       onAnswerSelected={onAnswerSelected} 
+                       selectedAnswerIndex={selectedAnswerIndex} 
+                       dict={dict}
+                       />
+
+
                       <Button 
                           checked={checked} 
                           nextQuestion={nextQuestion}
                           activeQuestion={activeQuestion} 
-                          questionsCont={questions.length} />
+                          questionsCont={questions.length}
+                          dict={dict}
+                       />
+                          
                     </div>
                    
-                  ) :(
-                   <Result result={result} questionCount={questions.length} />
+                  ):(
+                   <Result 
+                   result={result} 
+                   questionCount={questions.length} 
+                   dict={dict}
+                   
+                   />
                   )}
+
             </div>
         </div>
     );
