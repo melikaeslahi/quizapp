@@ -1,5 +1,6 @@
+import Loading from "@/app/[lang]/quiz/loading";
 import { Suspense } from "react";
-import Loading from "../loading";
+ 
 
 export default function Answer ({answers ,  selectedAnswerIndex , onAnswerSelected }){
     return(<>

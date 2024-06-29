@@ -2,7 +2,8 @@
 
 import {useState } from "react";
 import { quiz } from "@/data";
-import { Answer , Button , Result } from "./component";
+import { Answer , Button , Result } from "@/components/quiz";
+import LocaleSwitcher from "@/components/localeSwitcher";
 
 export default function  Quiz({lang , dict}){
     const [activeQuestion , setActiveQuestion] =useState(0);
@@ -56,8 +57,12 @@ export default function  Quiz({lang , dict}){
     }
 
     return(
+
         <div className="container w-full flex flex-col justify-center items-center my-auto">
-            <h1 className="text-white font-bold text-2xl p-2 m-3 w-full text-center ">
+              <div className="text-center">
+                <LocaleSwitcher />
+            </div>
+            <h1 className="text-white font-bold text-2xl pb-2 mb-3  w-full text-center ">
                  {dict['quiz'].title}
             </h1>
             <div className="text-white p-3 ">
